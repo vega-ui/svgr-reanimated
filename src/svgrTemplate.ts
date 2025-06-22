@@ -36,7 +36,6 @@ export interface AnimatedSvgProps extends SvgProps {
   size?: number | string;
   color?: string;
   strokeWidth?: number | string;
-  svgProps?: Partial<React.ComponentProps<typeof AnimatedSvg>>;
   pathProps?: Partial<React.ComponentProps<typeof AnimatedPath>>;
   animatedProps?: ReturnType<typeof useAnimatedProps>;
   ref?: React.Ref<React.Component<SvgProps>>
@@ -46,7 +45,6 @@ const ${componentName}: React.FC<AnimatedSvgProps> = ({
       size = 24,
       color = 'currentColor',
       strokeWidth = 2,
-      svgProps,
       pathProps,
       animatedProps,
       ref,
