@@ -1,0 +1,25 @@
+{
+	"name": "@vega-ui/svgr-reanimated",
+	"version": "1.0.0",
+	"type": "module",
+	"scripts": {
+		"build": "tsup"
+	},
+	"dependencies": {
+		"@babel/traverse": "^7.27.4",
+		"@babel/types": "^7.27.6"
+	},
+	"devDependencies": {
+		"@types/babel__traverse": "^7.20.7",
+		"tsup": "^8.5.0"
+	},
+	"exports": {
+		".": {
+			"types": "./build/index.d.ts",
+			"import": "./build/index.js",
+			"default": "./build/index.js"
+		}
+    },
+	"files": ["build", ".svgrrc.json"],
+	"packageManager": "pnpm@10.0.0"
+}

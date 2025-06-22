@@ -1,0 +1,26 @@
+{
+  "icon": true,
+  "typescript": true,
+  "prettier": true,
+  "dimensions": false,
+  "svgProps": {
+    "fill": "none",
+    "strokeLinecap": "round",
+    "strokeLinejoin": "round"
+  },
+  "svgo": true,
+  "svgoConfig": {
+    "plugins": [
+      {
+        "name": "removeXMLNS",
+        "active": true
+      },
+      {
+        "name": "removeAttrs",
+        "params": {
+          "attrs": "(class|className)"
+        }
+      }
+    ]
+  }
+}
