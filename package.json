@@ -13,6 +13,8 @@
 		"@types/babel__traverse": "^7.20.7",
 		"tsup": "^8.5.0"
 	},
+	"module": "./build/index.js",
+	"types": "./build/index.d.ts",
 	"exports": {
 		".": {
 			"types": "./build/index.d.ts",
