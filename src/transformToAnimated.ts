@@ -1,5 +1,5 @@
 import t, {JSXElement} from "@babel/types";
-import traverse from "@babel/traverse";
+import { default as traverse } from "@babel/traverse";
 import { addProp, addSpreadAttribute, hasProps } from "./jsx";
 
 export const transformToAnimated = (jsx: JSXElement): JSXElement => {
