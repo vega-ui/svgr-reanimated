@@ -1,26 +1,27 @@
-import t, {JSXElement} from "@babel/types";
-import { default as traverse } from "@babel/traverse";
+import { expressionStatement, program, file, isJSXIdentifier, isJSXAttribute, type JSXElement, type ExpressionStatement } from '@babel/types'
+import traverse from "@babel/traverse";
+
 import { addProp, addSpreadAttribute, hasProps } from "./jsx";
 
 export const transformToAnimated = (jsx: JSXElement): JSXElement => {
-  const exprStmt = t.expressionStatement(jsx as any);
-  const program = t.program([exprStmt]);
-  const ast = t.file(program);
+  const exprStmt = expressionStatement(jsx as any);
+  const prog = program([exprStmt]);
+  const ast = file(prog);
   
   traverse(ast, {
     JSXElement(path) {
       const opening = path.node.openingElement;
       
-      if (t.isJSXIdentifier(opening.name) && opening.name.name === 'svg') {
+      if (isJSXIdentifier(opening.name) && opening.name.name === 'svg') {
         opening.name.name = 'AnimatedSvg';
         const closing = path.node.closingElement;
         
-        if (closing && t.isJSXIdentifier(closing.name)) {
+        if (closing && isJSXIdentifier(closing.name)) {
           closing.name.name = 'AnimatedSvg';
         }
         
         opening.attributes = opening.attributes.filter(attr => {
-          if (t.isJSXAttribute(attr) && t.isJSXIdentifier(attr.name)) {
+          if (isJSXAttribute(attr) && isJSXIdentifier(attr.name)) {
             const name = attr.name.name;
             return name !== 'stroke' && name !== 'width' && name !== 'height' && name !== 'strokeWidth';
           }
@@ -42,11 +43,11 @@ export const transformToAnimated = (jsx: JSXElement): JSXElement => {
         if (!hasAnimatedSvgProps) addSpreadAttribute('props', opening)
       }
       
-      if (t.isJSXIdentifier(opening.name) && opening.name.name === 'path') {
+      if (isJSXIdentifier(opening.name) && opening.name.name === 'path') {
         opening.name.name = 'AnimatedPath';
         const closing = path.node.closingElement;
         
-        if (closing && t.isJSXIdentifier(closing.name)) {
+        if (closing && isJSXIdentifier(closing.name)) {
           closing.name.name = 'AnimatedPath';
         }
         
@@ -59,5 +60,5 @@ export const transformToAnimated = (jsx: JSXElement): JSXElement => {
     },
   });
   
-  return (program.body[0] as t.ExpressionStatement).expression as JSXElement;
+  return (prog.body[0] as ExpressionStatement).expression as JSXElement;
 }
