@@ -57,6 +57,18 @@ export const transformToAnimated = (jsx: JSXElement): JSXElement => {
         if (!hasAnimatedProps) addProp('animatedProps', 'animatedProps', opening)
         if (!hasPathProps) addSpreadAttribute('pathProps', opening)
       }
+      
+      if (isJSXIdentifier(opening.name) && opening.name.name === 'circle') {
+        opening.name.name = 'AnimatedCircle';
+        const closing = path.node.closingElement;
+        
+        if (closing && isJSXIdentifier(closing.name)) {
+          closing.name.name = 'AnimatedCircle';
+        }
+        
+        const hasAnimatedProps = hasProps('animatedProps', opening);
+        if (!hasAnimatedProps) addProp('animatedProps', 'animatedProps', opening)
+      }
     },
   });
   
